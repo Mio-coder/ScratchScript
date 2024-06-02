@@ -1,0 +1,29 @@
+BROADCAST test
+VAR global_var
+SPRITE A {
+    COSTUME Example_name(
+        file = "local_file.svg"
+        rotation_centre = (100,50)
+    )
+    looks.switchcostumeto(Example_name)
+    VAR x = 0
+    motion.goto(100, 50)
+    event.broadcast(test)
+    ON event.whenthisspriteclicked() {
+          event.broadcast(test)
+    }
+}
+SPRITE Stage {
+    COSTUME Backdrop1(
+        file = "local_file.svg"
+        rotation_centre = (100,50)
+    )
+    COSTUME Backdrop2(
+        file = "local_file.svg"
+        rotation_centre = (100,50)
+    )
+    looks.switchbackdropto(Backdrop1)
+    ON event.whenbroadcastreceived(test) {
+        looks.switchbackdropto(Backdrop2)
+    }
+}

@@ -1,7 +1,7 @@
-BROADCAST test
+NEW broadcast test
 VAR global_var
-SPRITE A {
-    COSTUME Example_name(
+NEW sprite A {
+    NEW costiume Example_name(
         file = "local_file.svg"
         rotation_centre = (100,50)
     )
@@ -13,12 +13,12 @@ SPRITE A {
           event.broadcast(test)
     }
 }
-SPRITE Stage {
-    COSTUME Backdrop1(
+NEW sprite Stage {
+    NEW costiume Backdrop1(
         file = "local_file.svg"
         rotation_centre = (100,50)
     )
-    COSTUME Backdrop2(
+    NEW costiume Backdrop2(
         file = "local_file.svg"
         rotation_centre = (100,50)
     )

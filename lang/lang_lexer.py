@@ -4,16 +4,7 @@ from rply.token import Token, SourcePosition
 lg = LexerGenerator()
 
 # Define tokens
-keywords = [
-    'BROADCAST',
-    'VAR',
-    'SPRITE',
-    'COSTUME',
-    'SOUND',
-    'ON'
-]
-for keyword in keywords:
-    lg.add(keyword, keyword)
+lg.add('NEW', r'new')
 lg.add('EQ', r'=')
 lg.add('DOT', r'\.')
 lg.add('COMMA', r',')

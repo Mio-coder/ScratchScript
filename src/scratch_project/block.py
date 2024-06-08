@@ -3,6 +3,7 @@ from enum import IntEnum
 from typing import Optional
 
 from .broadcast import Broadcast
+from .mutation import Mutation
 from .primitives import PrimitiveBlock
 from .utils import AutoId, from_dict
 from .variable import ListVariable, Variable
@@ -46,7 +47,7 @@ class BlockField:
 
     def as_tuple(self):
         value_id = [self.value.item_id] \
-                if isinstance(self.value, AutoId) else []
+            if isinstance(self.value, AutoId) else []
         return (self.name, [self.value] + value_id)
 
 
@@ -66,7 +67,7 @@ class Block(AutoId, short_name="Block"):
 
     def __post_init__(self):
         if self.mutation is not None:
-            self.mutation.block = self
+            self.mutation.function = self
         return super().__post_init__()
 
     @property

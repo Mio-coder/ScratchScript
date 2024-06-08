@@ -47,7 +47,7 @@ makeymakey = Extension(
     "https://en.scratch-wiki.info/wiki/Makey_Makey_Extension"
 )
 boost = Extension(
-    "boost",              
+    "boost",
     "https://en.scratch-wiki.info/wiki/LEGO_BOOST_Extension"
 )
 gdxfor = Extension(

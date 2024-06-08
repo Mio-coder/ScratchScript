@@ -1,35 +1,56 @@
 ```
-Broadcast test
-Var global_var
-Sprite A {
-    Costume Example_name(
+NEW broadcast test
+VAR global_var
+NEW sprite A {
+    NEW costiume Example_name(
         file = "local_file.svg"
         rotation_centre = (100,50)
     )
     looks.switchcostumeto(Example_name)
-    # This is comment
-    Var x = 0
-    # This will be executed on flag_clicked event
+    VAR x = 0
     motion.goto(100, 50)
-    On event.whenthisspriteclicked {
-        event.broadcast(test)
+    event.broadcast(test)
+    ON event.whenthisspriteclicked() {
+          event.broadcast(test)
     }
 }
-Sprite Stage {
-    Costume Backdrop1(
+NEW sprite Stage {
+    NEW costiume Backdrop1(
         file = "local_file.svg"
         rotation_centre = (100,50)
     )
-    Costume Backdrop2(
+    NEW costiume Backdrop2(
         file = "local_file.svg"
         rotation_centre = (100,50)
     )
     looks.switchbackdropto(Backdrop1)
-    On event.whenbroadcastreceived(test) {
+    ON event.whenbroadcastreceived(test) {
         looks.switchbackdropto(Backdrop2)
     }
 }
 ```
+
+resources:
+New:
+Sprite - curl code
+Costume - fields
+Sound - fields
+Broadcast - none
+Monitor - fields
+Comment? - fields
+Var - value
+
+Separate keyword:
+Prototype - fn
+
+
+Create?:
+Macro - code
+Class? - code
+
+Outline:
+NEW ID(type) ID(name) (code | fields)?
+
 grammar:
 ```
 program: (

@@ -58,6 +58,7 @@ class String:
     def as_list(self):
         return [10, self.value]
 
+
 @runtime_checkable
 class PrimitiveBlock(Protocol):
 

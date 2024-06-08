@@ -5,12 +5,9 @@ lg = LexerGenerator()
 
 # Define tokens
 keywords = [
-    'BROADCAST',
+    'NEW',
     'VAR',
-    'SPRITE',
-    'COSTUME',
-    'SOUND',
-    'ON'
+    'ON',
 ]
 for keyword in keywords:
     lg.add(keyword, keyword)
@@ -56,4 +53,3 @@ def format_tokens(tokens: list[Token]):
         result += f"{token.name}:{repr(token.value)[1:-1]}"
         prev_token = token
     return result
-

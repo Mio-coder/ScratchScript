@@ -1,8 +1,9 @@
-from enum import IntEnum
 from pprint import pp
 
 from msgspec import Struct
 from msgspec.json import decode
+
+from extract_functions.extract_types import Function, Field
 
 
 class Block(Struct):
@@ -19,25 +20,8 @@ class Sb3File(Struct):
     targets: list[Target]
 
 
-class Field(Struct):
-    name: str
-    possible_values: set
-    functions: set["Function"] = set()
-
-
-class Function(Struct):
-    opcode: str
-    inputs: list[str]
-    fields: dict[str, Field]
-
-    def __hash__(self):
-        return hash((self.opcode, *self.inputs, *self.fields.keys()))
-
-
-def main():
-    file = "move_functions.json"
-    with open(file) as f:
-        ret = decode(f.read(), type=Sb3File)
+def load(data):
+    ret = decode(data, type=Sb3File)
     ret: Sb3File
     blocks: dict[str, Block] = {}
     for target in ret.targets:
@@ -82,8 +66,8 @@ def main():
             for functions_id in field.functions:
                 new_functions.add(id2fn[functions_id])
             field.functions = new_functions
-    pp(functions)
+    return functions
 
 
 if __name__ == '__main__':
-    main()
+    pp(load("move_functions.json"))

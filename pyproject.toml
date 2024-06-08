@@ -7,8 +7,7 @@ name = "PyScratchScript"
 description = "Python liblary for generating .sb3 files"
 version = "0.0.0"
 dependencies = [
-    "rply",
-    "msgspec"
+    "rply"
 ]
 requires-python = ">= 3.11"
 readme = "README.md"

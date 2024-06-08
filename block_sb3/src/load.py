@@ -3,7 +3,7 @@ from pprint import pp
 from msgspec import Struct
 from msgspec.json import decode
 
-from extract_functions.extract_types import Function, Field
+from extract_types import Function, Field
 
 
 class Block(Struct):

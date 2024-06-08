@@ -53,4 +53,3 @@ def format_tokens(tokens: list[Token]):
         result += f"{token.name}:{repr(token.value)[1:-1]}"
         prev_token = token
     return result
-

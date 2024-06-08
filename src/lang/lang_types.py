@@ -50,4 +50,3 @@ class Resource(Code):
 class Event(Code):
     name: FnCall
     code: list[Code]
-

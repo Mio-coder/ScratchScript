@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
+from .extension import Extension
 from .meta import Meta
 from .monitor import Monitor
 from .target import Target
-from .extension import Extension
 
 
 @dataclass
@@ -18,6 +18,6 @@ class Project:
             "targets": [target.to_dict() for target in self.targets],
             "monitors": [monitor.to_dict() for monitor in self.monitors],
             "extensions":
-            [extension.to_dict() for extension in self.extensions],
+                [extension.to_dict() for extension in self.extensions],
             "meta": self.meta.to_dict()
         }

@@ -5,7 +5,6 @@ from msgspec import Struct
 from msgspec.json import decode
 
 
-
 class Block(Struct):
     opcode: str
     inputs: dict[str, list]

@@ -1,5 +1,6 @@
 from enum import StrEnum
 from typing import Optional, Any
+
 from src.scratch_project.utils import AutoId
 
 

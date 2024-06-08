@@ -66,7 +66,7 @@ class Block(AutoId, short_name="Block"):
 
     def __post_init__(self):
         if self.mutation is not None:
-            self.mutation.block = self
+            self.mutation.function = self
         return super().__post_init__()
 
     @property

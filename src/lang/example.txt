@@ -1,7 +1,7 @@
 NEW broadcast test
 VAR global_var
 NEW sprite A {
-    NEW costiume Example_name(
+    NEW costume Example_name(
         file = "local_file.svg"
         rotation_centre = (100,50)
     )
@@ -14,11 +14,11 @@ NEW sprite A {
     }
 }
 NEW sprite Stage {
-    NEW costiume Backdrop1(
+    NEW costume Backdrop1(
         file = "local_file.svg"
         rotation_centre = (100,50)
     )
-    NEW costiume Backdrop2(
+    NEW costume Backdrop2(
         file = "local_file.svg"
         rotation_centre = (100,50)
     )

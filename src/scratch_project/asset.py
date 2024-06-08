@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from scratch_project.utils import AutoId
+from src.scratch_project.utils import AutoId
 
 
 @dataclass

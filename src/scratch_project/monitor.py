@@ -1,6 +1,6 @@
 from enum import StrEnum
 from typing import Optional, Any
-from scratch_project.utils import AutoId
+from src.scratch_project.utils import AutoId
 
 
 class MonitorMode(StrEnum):

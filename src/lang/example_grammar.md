@@ -28,24 +28,29 @@ NEW sprite Stage {
         looks.switchbackdropto(Backdrop2)
     }
 }
+```
 
 resources:
 New:
 Sprite - curl code
-Costiume - fields
-Sound - fileds
+Costume - fields
+Sound - fields
 Broadcast - none
-Monitor -
-Comment? -
+Monitor - fields
+Comment? - fields
+Var - value
 
-Seperate keyword:
-Prototype - 
+Separate keyword:
+Prototype - fn
 
-Create:
-Macro
-Class?
 
-```
+Create?:
+Macro - code
+Class? - code
+
+Outline:
+NEW ID(type) ID(name) (code | fields)?
+
 grammar:
 ```
 program: (

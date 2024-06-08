@@ -5,20 +5,20 @@ Grammar features:
   - [ ] Full sounds
   - [ ] Full Costumes
   - [ ] Importing
-  - [ ] AST-macros
+  - [ ] Macros
   - [ ] Procedures 
 
 features spec:
   - Monitors:
     ```
-    MONITOR (
+    NEW monitor (
         mode = [str literal]
         show = [function or variable]
     )
     ```
-    Monitor of block
+    Monitor of block ? (need custom logic)
     ```
-    MONITOR (
+    NEW monitor (
         mode = large
         show = sensing.distanceto(mouse-pointer)
     )

@@ -3,7 +3,7 @@ from pprint import pp
 from msgspec import Struct
 from msgspec.json import decode
 
-from extract_types import Function, Field
+from block_sb3.extract_types import Function, Field, Input
 
 
 class Block(Struct):
@@ -31,6 +31,18 @@ def load(data):
     update_inputs = []
     for block_id, block in blocks.items():
         to_update = False
+        inputs = {}
+        for name, inp in block.inputs.items():
+            if isinstance(inp[1], list):
+                val = None
+            else:
+                val = inp[1]
+                to_update = True
+            inputs[name] = Input(
+                name,
+                val
+            )
+
         fields = {}
         for name, inp in block.fields.items():
             fields[name] = Field(
@@ -40,6 +52,7 @@ def load(data):
             if len(inp) == 2 and inp[1] is not None:
                 fields[name].functions = {inp[1]}
                 to_update = True
+
         if block.opcode in functions:
             fn = functions[block.opcode]
             for name, field in fn.fields.items():
@@ -55,12 +68,17 @@ def load(data):
         else:
             fn = id2fn[block_id] = functions[block.opcode] = Function(
                 block.opcode,
-                list(block.inputs),
+                inputs,
                 fields
             )
         if to_update:
             update_inputs.append(fn)
+
     for to_update_fn in update_inputs:
+        for name, inp in to_update_fn.inputs.items():
+            if inp.block_opcode is not None and inp.block_opcode in id2fn:
+                inp.block_opcode = id2fn[inp.block_opcode].opcode
+
         for name, field in to_update_fn.fields.items():
             new_functions = set()
             for functions_id in field.functions:

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from msgspec import Struct
 
 
 class Expr:
@@ -9,15 +9,13 @@ class Code:
     pass
 
 
-@dataclass
-class MathExpr(Expr):
+class MathExpr(Expr, Struct):
     left: "None | expr"
     op: str
     right: "expr"
 
 
-@dataclass
-class Color:
+class Color(Struct):
     value: str
 
 
@@ -26,27 +24,23 @@ value = Color | str | int | float | tuple[float, float]
 expr = Expr | list[str]
 
 
-@dataclass
-class Assignment(Code):
+class Assignment(Code, Struct):
     name: str
     value: expr | value
 
 
-@dataclass
-class FnCall(Expr, Code):
+class FnCall(Expr, Code, Struct):
     name: list[str]
     args: list[expr | value]
 
 
-@dataclass
-class Resource(Code):
+class Resource(Code, Struct):
     res_type: str
     name: str
     contents: list[Code] | dict[str, value] | None
     init_value: expr
 
 
-@dataclass
-class Event(Code):
+class Event(Code, Struct):
     name: FnCall
     code: list[Code]

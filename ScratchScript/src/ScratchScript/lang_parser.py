@@ -2,8 +2,8 @@ from functools import wraps
 
 from rply import ParserGenerator, Token
 
-from lang.src.lang_lexer import lang_tokens, lexer
-from lang.src.lang_types import Resource, Event, Assignment, FnCall, MathExpr, Color
+from lang_lexer import lang_tokens, lexer
+from lang_types import Resource, Event, Assignment, FnCall, MathExpr, Color
 
 pg = ParserGenerator(lang_tokens)
 
@@ -258,4 +258,4 @@ def main(file):
 
 
 if __name__ == '__main__':
-    main("../example.txt")
+    main("../../example.txt")

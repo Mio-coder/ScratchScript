@@ -1,4 +1,11 @@
+from typing import Optional
+
 from msgspec import Struct
+
+
+class Input(Struct):
+    name: str
+    block_opcode: Optional[str] = None
 
 
 class Field(Struct):
@@ -9,7 +16,7 @@ class Field(Struct):
 
 class Function(Struct):
     opcode: str
-    inputs: list[str]
+    inputs: dict[str, Input]
     fields: dict[str, Field]
 
     def __hash__(self):

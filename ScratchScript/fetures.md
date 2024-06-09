@@ -16,10 +16,21 @@ features spec:
         show = [function or variable]
     )
     ```
-    Monitor of block ? (need custom logic)
+    Monitor of block ? (need custom logic with var)
     ```
     NEW monitor (
         mode = large
         show = sensing.distanceto(mouse-pointer)
     )
     ```
+
+functions:
+how to handle functions with inputs as blocks
+
+raw:
+```
+motion.goto(TO=motion.goto.menu(TO="_random_"))
+```
+
+
+    

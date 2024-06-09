@@ -39,15 +39,17 @@ from dataclasses import dataclass
 from typing import Optional
 from warnings import warn
 
-from lang.src.lang_types import Resource, Code as ParserCode, Event, FnCall
+from lang_types import Resource, Code as ParserCode, Event, FnCall
 
 
 class CompilerError(ValueError):
     pass
 
 
-# class Code:
-#     pass
+class ScratchFnCall:
+    def __init__(self, fn: FnCall):
+        pass
+
 
 
 @dataclass

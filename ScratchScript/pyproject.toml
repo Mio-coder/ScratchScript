@@ -3,8 +3,8 @@ requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "PyScratchScript"
-description = "Python liblary for generating .sb3 files"
+name = "ScratchScript"
+description = "Compiler for ScratchScript"
 version = "0.0.0"
 dependencies = [
     "rply"
@@ -14,9 +14,6 @@ readme = "README.md"
 
 [project.urls]
 Repository = "https://github.com/Mio-coder/PyScratch.git"
-
-[project.scripts]
-extract-spec = "extract_functions:__main__"
 
 
 [tool.pyright]

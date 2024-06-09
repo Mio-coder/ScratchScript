@@ -39,7 +39,7 @@ from dataclasses import dataclass
 from typing import Optional
 from warnings import warn
 
-from src.lang.lang_types import Resource, Code as ParserCode, Event, FnCall
+from lang.src.lang_types import Resource, Code as ParserCode, Event, FnCall
 
 
 class CompilerError(ValueError):

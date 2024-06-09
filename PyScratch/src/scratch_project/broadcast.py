@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.scratch_project.utils import AutoId
+from PyScratch.src.scratch_project.utils import AutoId
 
 
 @dataclass

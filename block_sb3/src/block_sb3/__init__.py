@@ -1,11 +1,27 @@
+from pathlib import Path
 from zipfile import ZipFile
 
-from msgspec.json import encode
+from msgspec import DecodeError
+from msgspec.json import encode, decode
 
 from block_sb3.load import load
 
 
-def run(file, extract: bool = False):
+def write_if_changed(file: Path, data):
+    try:
+        with file.open() as f:
+            orig_data = decode(f.read())
+    except (DecodeError, FileNotFoundError, OSError):
+        changed = True
+    else:
+        changed = orig_data == data
+
+    if changed:
+        with file.open(mode='rw') as f:
+            f.write(data)
+
+
+def run(file: Path, extract: bool = False):
     extract_file = file.with_suffix(".raw.json")
     output = file.with_suffix(".fnspec.json")
     if file.suffix == ".json":
@@ -19,9 +35,8 @@ def run(file, extract: bool = False):
         raise ValueError(f"suffix of {file} must be '.json', '.zip' or '.sb3', not {file.suffix}")
 
     if extract:
-        with extract_file.open(mode='w') as f:
-            f.write(data)
+        write_if_changed(extract_file, data)
+
     functions = load(data)
 
-    with output.open(mode="wb") as f:
-        f.write(encode(functions))
+    write_if_changed(output, encode(functions))

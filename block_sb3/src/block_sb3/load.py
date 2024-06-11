@@ -3,7 +3,7 @@ from pprint import pp
 from msgspec import Struct
 from msgspec.json import decode
 
-from block_sb3.extract_types import Function, Field, Input
+from block_sb3.extract_types import Function, Field, Input, PrimitiveFunction
 
 
 class Block(Struct):
@@ -13,7 +13,7 @@ class Block(Struct):
 
 
 class Target(Struct):
-    blocks: dict[str, Block]
+    blocks: dict[str, Block | list]
 
 
 class Sb3File(Struct):
@@ -26,10 +26,18 @@ def load(data):
     blocks: dict[str, Block] = {}
     for target in ret.targets:
         blocks.update(target.blocks)
-    id2fn = {}
-    functions: dict[str, Function] = {}
+    id2fn: dict[str, PrimitiveFunction | Function] = {}
+    functions: dict[str, PrimitiveFunction | Function] = {}
     update_inputs = []
     for block_id, block in blocks.items():
+        if isinstance(block, list):
+            if len(block) > 3:  # contains id
+                fn = PrimitiveFunction(
+                    block[0],
+                    block[1],
+                )
+                functions[fn.block_opcode] = id2fn[block[2]] = fn
+            continue
         to_update = False
         inputs = {}
         for name, inp in block.inputs.items():
@@ -55,6 +63,9 @@ def load(data):
 
         if block.opcode in functions:
             fn = functions[block.opcode]
+            if isinstance(fn, PrimitiveFunction):
+                print(f"ERROR: found primitive and normal blocks wit the same opcodes: {block.opcode}")
+                continue
             for name, field in fn.fields.items():
                 if name in fields:
                     field.possible_values.update(

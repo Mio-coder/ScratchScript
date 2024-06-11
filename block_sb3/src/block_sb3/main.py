@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 from pathlib import Path
 
-from block_sb3.src import run
+from block_sb3 import run
 
 
 def parse_args():

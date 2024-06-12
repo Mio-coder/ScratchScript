@@ -1,11 +1,14 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from PyScratch.src.PyScratch.utils import AutoId
+from PyScratch.utils import AutoId
+
+from PyScratch.primitives import PrimitiveBlock
 
 
 @dataclass
 class Variable(AutoId):
+
     name: str
     value: str
     is_cloud: bool
@@ -15,7 +18,7 @@ class Variable(AutoId):
 
 
 @dataclass
-class VariableBlock(AutoId):
+class VariableBlock(AutoId, PrimitiveBlock):
     var: Variable
     x: Optional[int] = None  # if top level
     y: Optional[int] = None  # if top level

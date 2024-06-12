@@ -1,9 +1,16 @@
+from abc import abstractmethod
 from dataclasses import dataclass
-from typing import Protocol, runtime_checkable
+
+
+class PrimitiveBlock:
+
+    @abstractmethod
+    def as_list(self) -> list:
+        ...
 
 
 @dataclass
-class Number:
+class Number(PrimitiveBlock):
     value: float
 
     def as_list(self):
@@ -11,7 +18,7 @@ class Number:
 
 
 @dataclass
-class Positive:
+class Positive(PrimitiveBlock):
     value: int
 
     def as_list(self):
@@ -19,7 +26,7 @@ class Positive:
 
 
 @dataclass
-class Negative:
+class Negative(PrimitiveBlock):
     value: int
 
     def as_list(self):
@@ -27,7 +34,7 @@ class Negative:
 
 
 @dataclass
-class Integer:
+class Integer(PrimitiveBlock):
     value: int
 
     def as_list(self):
@@ -35,7 +42,7 @@ class Integer:
 
 
 @dataclass
-class Angle:
+class Angle(PrimitiveBlock):
     value: int
 
     def as_list(self):
@@ -43,7 +50,7 @@ class Angle:
 
 
 @dataclass
-class Color:
+class Color(PrimitiveBlock):
     value: str
     "in #hex"
 
@@ -52,15 +59,8 @@ class Color:
 
 
 @dataclass
-class String:
+class String(PrimitiveBlock):
     value: str
 
     def as_list(self):
         return [10, self.value]
-
-
-@runtime_checkable
-class PrimitiveBlock(Protocol):
-
-    def as_list(self) -> list:
-        ...

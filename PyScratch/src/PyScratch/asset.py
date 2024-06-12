@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from PyScratch.src.PyScratch.utils import AutoId
+from PyScratch.utils import AutoId
 
 
 @dataclass
@@ -21,7 +21,7 @@ class Asset(AutoId):
         }
 
     def as_tuple(self):
-        return (self.item_id, self.to_dict())
+        return self.item_id, self.to_dict()
 
 
 @dataclass

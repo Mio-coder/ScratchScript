@@ -15,7 +15,7 @@ class Comment(AutoId, short_name="Comment"):
     text: str
 
     def as_tuple(self):
-        return (self.item_id, {
+        return self.item_id, {
             "blockId": self.block.item_id,
             "x": self.x,
             "y": self.y,
@@ -23,4 +23,4 @@ class Comment(AutoId, short_name="Comment"):
             "height": self.height,
             "minimized": self.minimized,
             "text": self.text
-        })
+        }

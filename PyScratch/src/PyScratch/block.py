@@ -48,7 +48,7 @@ class BlockField:
     def as_tuple(self):
         value_id = [self.value.item_id] \
             if isinstance(self.value, AutoId) else []
-        return (self.name, [self.value] + value_id)
+        return self.name, [self.value] + value_id
 
 
 @dataclass
@@ -63,7 +63,7 @@ class Block(AutoId, short_name="Block"):
     x: Optional[int] = None  # if top_level
     y: Optional[int] = None  # if top_level
     mutation: Optional[Mutation] = None
-    """opcode == "procedures_call", "procedures_prototype", "control_stop" """
+    """opcode in "procedures_call", "procedures_prototype", "control_stop" """
 
     def __post_init__(self):
         if self.mutation is not None:
@@ -89,4 +89,4 @@ class Block(AutoId, short_name="Block"):
             result["y"] = self.y or 0
         if self.mutation is not None:
             result["mutation"] = self.mutation.as_dict()
-        return (self.item_id, result)
+        return self.item_id, result

@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 from pathlib import Path
 
-from block_sb3 import run
+from . import run
 
 
 def parse_args():
@@ -13,5 +13,5 @@ def parse_args():
 
 def main():
     args = parse_args()
-    run(args.file, args.extract)
+    run(args.input_file, args.extract)
     return 0

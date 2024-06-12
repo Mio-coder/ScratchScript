@@ -4,20 +4,21 @@ from zipfile import ZipFile
 from msgspec import DecodeError
 from msgspec.json import encode, decode
 
-from block_sb3.load import load
+from .load import load
 
 
-def write_if_changed(file: Path, data):
+def write_if_changed(file: Path, data, is_bytes: bool = False, force_write=False):
     try:
         with file.open() as f:
             orig_data = decode(f.read())
     except (DecodeError, FileNotFoundError, OSError):
         changed = True
     else:
-        changed = orig_data == data
+        changed = orig_data != data
 
-    if changed:
-        with file.open(mode='rw') as f:
+    if changed or force_write:
+        mode = "w" + ("b" if is_bytes else "")
+        with file.open(mode=mode) as f:
             f.write(data)
 
 
@@ -39,4 +40,4 @@ def run(file: Path, extract: bool = False):
 
     functions = load(data)
 
-    write_if_changed(output, encode(functions))
+    write_if_changed(output, encode(functions), True)

@@ -16,4 +16,4 @@ readme = "README.md"
 Repository = "https://github.com/Mio-coder/PyScratch.git"
 
 [project.scripts]
-block-sb3 = "main:main"
+block-sb3 = "block_sb3.main:main"

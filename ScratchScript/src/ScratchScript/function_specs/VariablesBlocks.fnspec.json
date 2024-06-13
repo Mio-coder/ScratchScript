@@ -1,1 +1,329 @@
-{"data_variable":{"fn_type":13,"name":"[list]"},"data_setvariableto":{"opcode":"data_setvariableto","inputs":{"VALUE":{"name":"VALUE","block_opcode":null}},"fields":{"VARIABLE":{"name":"VARIABLE","possible_values":["[variable]"],"functions":[{"fn_type":12,"name":"[variable]"}]}}},"data_changevariableby":{"opcode":"data_changevariableby","inputs":{"VALUE":{"name":"VALUE","block_opcode":null}},"fields":{"VARIABLE":{"name":"VARIABLE","possible_values":["[variable]"],"functions":[{"fn_type":12,"name":"[variable]"}]}}},"data_showvariable":{"opcode":"data_showvariable","inputs":{},"fields":{"VARIABLE":{"name":"VARIABLE","possible_values":["[variable]"],"functions":[{"fn_type":12,"name":"[variable]"}]}}},"data_hidevariable":{"opcode":"data_hidevariable","inputs":{},"fields":{"VARIABLE":{"name":"VARIABLE","possible_values":["[variable]"],"functions":[{"fn_type":12,"name":"[variable]"}]}}},"data_addtolist":{"opcode":"data_addtolist","inputs":{"ITEM":{"name":"ITEM","block_opcode":null}},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_deleteoflist":{"opcode":"data_deleteoflist","inputs":{"INDEX":{"name":"INDEX","block_opcode":null}},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_deletealloflist":{"opcode":"data_deletealloflist","inputs":{},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_insertatlist":{"opcode":"data_insertatlist","inputs":{"ITEM":{"name":"ITEM","block_opcode":null},"INDEX":{"name":"INDEX","block_opcode":null}},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_replaceitemoflist":{"opcode":"data_replaceitemoflist","inputs":{"INDEX":{"name":"INDEX","block_opcode":null},"ITEM":{"name":"ITEM","block_opcode":null}},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_showlist":{"opcode":"data_showlist","inputs":{},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_hidelist":{"opcode":"data_hidelist","inputs":{},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_itemoflist":{"opcode":"data_itemoflist","inputs":{"INDEX":{"name":"INDEX","block_opcode":null}},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_itemnumoflist":{"opcode":"data_itemnumoflist","inputs":{"ITEM":{"name":"ITEM","block_opcode":null}},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_lengthoflist":{"opcode":"data_lengthoflist","inputs":{},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}},"data_listcontainsitem":{"opcode":"data_listcontainsitem","inputs":{"ITEM":{"name":"ITEM","block_opcode":null}},"fields":{"LIST":{"name":"LIST","possible_values":["[list]"],"functions":[{"fn_type":13,"name":"[list]"}]}}}}
+{
+  "data_variable": {
+    "fn_type": 13,
+    "name": "[list]"
+  },
+  "data_setvariableto": {
+    "opcode": "data_setvariableto",
+    "inputs": {
+      "VALUE": {
+        "name": "VALUE",
+        "block_opcode": null
+      }
+    },
+    "fields": {
+      "VARIABLE": {
+        "name": "VARIABLE",
+        "possible_values": [
+          "[variable]"
+        ],
+        "functions": [
+          {
+            "fn_type": 12,
+            "name": "[variable]"
+          }
+        ]
+      }
+    }
+  },
+  "data_changevariableby": {
+    "opcode": "data_changevariableby",
+    "inputs": {
+      "VALUE": {
+        "name": "VALUE",
+        "block_opcode": null
+      }
+    },
+    "fields": {
+      "VARIABLE": {
+        "name": "VARIABLE",
+        "possible_values": [
+          "[variable]"
+        ],
+        "functions": [
+          {
+            "fn_type": 12,
+            "name": "[variable]"
+          }
+        ]
+      }
+    }
+  },
+  "data_showvariable": {
+    "opcode": "data_showvariable",
+    "inputs": {},
+    "fields": {
+      "VARIABLE": {
+        "name": "VARIABLE",
+        "possible_values": [
+          "[variable]"
+        ],
+        "functions": [
+          {
+            "fn_type": 12,
+            "name": "[variable]"
+          }
+        ]
+      }
+    }
+  },
+  "data_hidevariable": {
+    "opcode": "data_hidevariable",
+    "inputs": {},
+    "fields": {
+      "VARIABLE": {
+        "name": "VARIABLE",
+        "possible_values": [
+          "[variable]"
+        ],
+        "functions": [
+          {
+            "fn_type": 12,
+            "name": "[variable]"
+          }
+        ]
+      }
+    }
+  },
+  "data_addtolist": {
+    "opcode": "data_addtolist",
+    "inputs": {
+      "ITEM": {
+        "name": "ITEM",
+        "block_opcode": null
+      }
+    },
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_deleteoflist": {
+    "opcode": "data_deleteoflist",
+    "inputs": {
+      "INDEX": {
+        "name": "INDEX",
+        "block_opcode": null
+      }
+    },
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_deletealloflist": {
+    "opcode": "data_deletealloflist",
+    "inputs": {},
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_insertatlist": {
+    "opcode": "data_insertatlist",
+    "inputs": {
+      "ITEM": {
+        "name": "ITEM",
+        "block_opcode": null
+      },
+      "INDEX": {
+        "name": "INDEX",
+        "block_opcode": null
+      }
+    },
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_replaceitemoflist": {
+    "opcode": "data_replaceitemoflist",
+    "inputs": {
+      "INDEX": {
+        "name": "INDEX",
+        "block_opcode": null
+      },
+      "ITEM": {
+        "name": "ITEM",
+        "block_opcode": null
+      }
+    },
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_showlist": {
+    "opcode": "data_showlist",
+    "inputs": {},
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_hidelist": {
+    "opcode": "data_hidelist",
+    "inputs": {},
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_itemoflist": {
+    "opcode": "data_itemoflist",
+    "inputs": {
+      "INDEX": {
+        "name": "INDEX",
+        "block_opcode": null
+      }
+    },
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_itemnumoflist": {
+    "opcode": "data_itemnumoflist",
+    "inputs": {
+      "ITEM": {
+        "name": "ITEM",
+        "block_opcode": null
+      }
+    },
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_lengthoflist": {
+    "opcode": "data_lengthoflist",
+    "inputs": {},
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  },
+  "data_listcontainsitem": {
+    "opcode": "data_listcontainsitem",
+    "inputs": {
+      "ITEM": {
+        "name": "ITEM",
+        "block_opcode": null
+      }
+    },
+    "fields": {
+      "LIST": {
+        "name": "LIST",
+        "possible_values": [
+          "[list]"
+        ],
+        "functions": [
+          {
+            "fn_type": 13,
+            "name": "[list]"
+          }
+        ]
+      }
+    }
+  }
+}

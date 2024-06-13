@@ -2,8 +2,8 @@ from functools import wraps
 
 from rply import ParserGenerator, Token
 
-from lang_lexer import lang_tokens, lexer
-from lang_types import Resource, Event, Assignment, FnCall, MathExpr, Color
+from ScratchScript.lang_parser.lang_lexer import lang_tokens, lexer
+from ScratchScript.lang_parser.lang_types import Resource, Event, Assignment, FnCall, MathExpr, Color
 
 pg = ParserGenerator(lang_tokens)
 
@@ -255,7 +255,7 @@ def main(file):
     #     raise ValueError(msg) from e
     # else:
     #     print(result)
-
+    return result
 
 if __name__ == '__main__':
-    main("../../example.txt")
+    main("../../../example.txt")

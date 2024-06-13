@@ -1,11 +1,13 @@
+from abc import ABC
+
 from msgspec import Struct
 
 
-class Expr:
+class Expr(ABC):
     pass
 
 
-class Code:
+class Code(ABC):
     pass
 
 

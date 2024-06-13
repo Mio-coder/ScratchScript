@@ -31,6 +31,13 @@ raw:
 ```
 motion.goto(TO=motion.goto.menu(TO="_random_"))
 ```
-
-
-    
+syntactic sugar:
+```
+motion.goto(Position::random)
+```
+```
+motion.goto(position.random)
+```
+```
+motion.goto(morion.position.random)
+```

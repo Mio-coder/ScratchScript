@@ -72,13 +72,13 @@ class Block(AutoId, short_name="Block"):
 
     @property
     def top_level(self):
-        return self.parent == None
+        return self.parent is None
 
     def as_tuple(self):
         result = {
             "opcode": self.opcode,
-            "next": self.next_block,
-            "parent": self.parent,
+            "next": self.next_block.item_id,
+            "parent": self.parent.item_id,
             "inputs": from_dict(self.inputs),
             "fields": from_dict(self.fields),
             "shadow": self.shadow,

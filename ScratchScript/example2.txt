@@ -1,3 +1,3 @@
-sprite A {
-    event.broadcast(test)
+NEW sprite A {
+    motion.gotoxy(100, 100)
 }

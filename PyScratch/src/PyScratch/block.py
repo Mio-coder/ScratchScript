@@ -52,7 +52,7 @@ class BlockField:
 
 
 @dataclass
-class Block(AutoId, short_name="Block"):
+class Block(AutoId):
     opcode: str
     inputs: list[BlockInput]  # d[name] = [type, id | inlineBlock] <= input
     fields: list[BlockField]  # d[name] = [value, (ID of value)?] <= field

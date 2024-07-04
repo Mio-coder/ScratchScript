@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class Mutation:
-    block: Optional[Block] = field(default=None, init=False)  # set by block
+    block: Optional["Block"] = field(default=None, init=False)  # set by block
 
     def as_dict(self):
         assert self.block is not None

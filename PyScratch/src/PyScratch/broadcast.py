@@ -5,7 +5,7 @@ from PyScratch.utils import AutoId
 
 
 @dataclass
-class Broadcast(AutoId, short_name="Broadcast", PrimitiveBlock):
+class Broadcast(AutoId, PrimitiveBlock):
     name: str
 
     def as_tuple(self) -> tuple[str, str]:

@@ -27,17 +27,13 @@ class FnSpec(Struct):
     fields: dict[str, FnFieldsSpec]
 
 
-class ModuleSpec(Struct):
-    functions: dict[str, FnSpec]
+specs_dir = Path(__file__).parent.parent / "function_specs"
 
 
-specs_dir = Path(__file__).parent / "function_specs"
-
-
-def get_spec(spec_name) -> ModuleSpec:
+def get_spec(spec_name) -> dict[str, FnSpec]:
     file = specs_dir / (spec_name + ".fnspec.json")
     with file.open() as f:
-        return decode(f.read(), type=ModuleSpec)
+        return decode(f.read(), type=dict[str, FnSpec])
 
 
 def as_primitive(value):
@@ -83,7 +79,7 @@ def get_field(field_spec: FnFieldsSpec) -> type[FnFieldBase]:
 
 class FnBase:
     @abstractmethod
-    def get_block(self, next_block: Block, parent: Block):
+    def get_blocks(self, next_block: Block, parent: Block) -> list:
         ...
 
 
@@ -106,16 +102,23 @@ def get_raw_fn(fn_spec: FnSpec):
                     raise ValueError(f"Unknown field {name}")
                 self.fields.append(fields_spec[name](name, field))
 
-        def get_block(self, next_block, parent):
-            return Block(
+        def get_blocks(self, next_block, parent):
+            return [Block(
                 opcode=self.opcode,
                 inputs=[inp.as_block_input() for inp in self.inputs],
                 fields=[field.as_block_field() for field in self.fields],
                 shadow=False,
                 next_block=next_block,
                 parent=parent,
-            )
+            )]
 
     return RawFn
 
-# FnCall(name=['motion', 'goto'], args=[100, 100])
+
+def get_function(namespace, fn: list[str]) -> FnBase:
+    if isinstance(namespace, FnBase):
+        if fn is not []:
+            raise TypeError("function does not have attributes")
+        return namespace
+    if fn[0] in namespace:
+        return get_function(namespace[fn[0]], fn[1:])

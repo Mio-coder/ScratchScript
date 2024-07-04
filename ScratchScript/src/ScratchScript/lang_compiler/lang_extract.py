@@ -38,7 +38,7 @@ Var - value
 from pprint import pp
 from typing import Optional
 
-from ScratchScript.lang_compiler.lang_types import Variable, Sprite, StageSprite
+from ScratchScript.lang_compiler.lang_types import Variable, Sprite, StageSprite, Program
 from ScratchScript.lang_parser.lang_types import Assignment
 from ScratchScript.lang_parser.lang_types import Resource, Code, Event
 
@@ -99,3 +99,5 @@ def parse_program(n: list[Code]):
             stage.add_main_code(v)
         else:
             raise CompilerError(f"only sprites and code are allowed as top-level, not {type(v)}")
+    program = Program(sprites)
+    return program

@@ -1,22 +1,20 @@
 from collections import defaultdict
-from dataclasses import dataclass
 from warnings import warn
+
+from msgspec import Struct
 
 from ScratchScript.lang_parser.lang_types import Code, FnCall
 
 
-@dataclass
-class Costume:
+class Costume(Struct):
     name: str
 
 
-@dataclass
-class Sound:
+class Sound(Struct):
     name: str
 
 
-@dataclass
-class Variable:
+class Variable(Struct):
     name: str
 
 
@@ -53,3 +51,8 @@ class Sprite:
 class StageSprite(Sprite):
     def __init__(self):
         super().__init__("Stage")
+
+
+class Program(Struct):
+    sprites: dict[str, Sprite]
+

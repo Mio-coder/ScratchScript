@@ -1,13 +1,11 @@
-from abc import ABC
-
 from msgspec import Struct
 
 
-class Expr(ABC):
+class Expr:
     pass
 
 
-class Code(ABC):
+class Code:
     pass
 
 
@@ -31,9 +29,14 @@ class Assignment(Code, Struct):
     value: expr | value
 
 
+class FnCallArgs(Struct):
+    args: list[expr | value]
+    kwargs: dict[str, expr | value]
+
+
 class FnCall(Expr, Code, Struct):
     name: list[str]
-    args: list[expr | value]
+    args: FnCallArgs
 
 
 class Resource(Code, Struct):

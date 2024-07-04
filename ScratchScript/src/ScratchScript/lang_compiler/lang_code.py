@@ -3,9 +3,9 @@ from typing import Optional, Any
 from msgspec import Struct
 from msgspec.json import decode
 
-from ScratchScript.lang_compiler.lang_function import FnSpec, get_raw_fn
+from ScratchScript.lang_compiler.lang_function import FnSpec, get_raw_fn, get_function
 from ScratchScript.lang_compiler.lang_types import StageSprite, Sprite, Variable, MAIN_CODE_EVENT
-from ScratchScript.lang_parser.lang_types import Code, Assignment, FnCall, Expr
+from ScratchScript.lang_parser.lang_types import Code, Assignment, FnCall, Expr, FnCallArgs
 
 # FnCall(name=['motion', 'goto'], args=[100, 100])
 data_setvariableto = get_raw_fn(decode("""
@@ -76,11 +76,20 @@ def parse_fn_call(fn_call: FnCall):
     pre = []
     post = []
     args = []
-    for arg in fn_call.args:
+    kwargs = {}
+    fn_args: FnCallArgs = fn_call.args
+    for arg in fn_args.args:
         expr_pre, expr_post, expr = parse_expr(arg)
         pre += expr_pre
-        expr_post += expr_post
+        post += expr_post
         args += expr
+    for name, arg in fn_args.kwargs:
+        expr_pre, expr_post, expr = parse_expr(arg)
+        pre += expr_pre
+        post += expr_post
+        kwargs[name] = arg
+    fn = get_function(fn_call.name)
+
     return []
 
 

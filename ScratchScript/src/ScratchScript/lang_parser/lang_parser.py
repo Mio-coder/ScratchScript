@@ -3,7 +3,7 @@ from functools import wraps
 from rply import ParserGenerator, Token
 
 from ScratchScript.lang_parser.lang_lexer import lang_tokens, lexer
-from ScratchScript.lang_parser.lang_types import Resource, Event, Assignment, FnCall, MathExpr, Color
+from ScratchScript.lang_parser.lang_types import Resource, Event, Assignment, FnCall, MathExpr, Color, FnCallArgs
 
 pg = ParserGenerator(lang_tokens)
 
@@ -126,7 +126,7 @@ def fn_call(p):
 @pg.production('fn_call : attr L_PAREN R_PAREN')
 @log_call
 def fn_call(p):
-    return FnCall(name=p[0], args=[])
+    return FnCall(name=p[0], args=dict())
 
 
 @pg.production('fn_call_args : expr')
@@ -134,8 +134,19 @@ def fn_call(p):
 @log_call
 def fn_call_args(p):
     if len(p) == 1:
-        return [p[0]]
-    return p[0] + [p[2]]
+        return FnCallArgs([p[0]], dict())
+    p[0].args += [p[2]]
+    return p[0]
+
+
+@pg.production('fn_call_args : ID EQ expr')
+@pg.production('fn_call_args : fn_call_args COMMA ID EQ expr')
+@log_call
+def fn_call_args(p):
+    if len(p) == 3:
+        return FnCallArgs([], {p[0].getstr(): p[2]})
+    p[0].kwargs[p[2].getstr()] = p[4]
+    return p[0]
 
 
 @pg.production('attr : ID')
@@ -239,23 +250,3 @@ def position(p):
 parser = pg.build()
 
 
-def main(file):
-    with open(file) as f:
-        source = f.read() + "\n"
-    token_stream = lexer.lex(source)
-    tokens = list(token_stream)
-    # print(print_tokens(tokens))
-    result = parser.parse(iter(tokens))
-    # try:
-    #     result = parser.parse(iter(tokens))
-    # except ParsingError as e:
-    #     pos: SourcePosition = e.source_pos
-    #     msg = f"C:\\Users\\oparm\\PycharmProjects\\PyScratch\\lang\\{file}:{pos.lineno}:{pos.colno}:" \
-    #           f" ParsingError: {e.message}"
-    #     raise ValueError(msg) from e
-    # else:
-    #     print(result)
-    return result
-
-if __name__ == '__main__':
-    main("../../../example.txt")

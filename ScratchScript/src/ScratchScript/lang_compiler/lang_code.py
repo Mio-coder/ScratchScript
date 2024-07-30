@@ -55,6 +55,7 @@ class GlobalState(Struct):
         return self.sprites["stage"]
 
 
+# TODO: implement
 def parse_expr(expr: Expr) -> tuple[list, list, Any]:
     return [], [], 10
 
@@ -72,6 +73,7 @@ def parse_code(sprite: Sprite, stage: StageSprite):
     return result
 
 
+# TODO: rewrite
 def parse_fn_call(fn_call: FnCall):
     pre = []
     post = []

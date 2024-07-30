@@ -36,6 +36,7 @@ def get_spec(spec_name) -> dict[str, FnSpec]:
         return decode(f.read(), type=dict[str, FnSpec])
 
 
+# TODO: implement
 def as_primitive(value):
     return PrimitiveBlock()
 

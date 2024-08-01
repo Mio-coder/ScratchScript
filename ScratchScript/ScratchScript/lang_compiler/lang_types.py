@@ -3,7 +3,9 @@ from warnings import warn
 
 from msgspec import Struct
 
-from ScratchScript.lang_parser.lang_types import Code, FnCall
+from ScratchScript.ScratchScript.lang_compiler.lang_function import FnBase
+from ScratchScript.ScratchScript.lang_compiler import MAIN_CODE_EVENT
+from ScratchScript.ScratchScript.lang_parser.lang_types import Code
 
 
 class Costume(Struct):
@@ -18,23 +20,19 @@ class Variable(Struct):
     name: str
 
 
-MAIN_CODE_EVENT = FnCall("event.test", [])
-
-
 class Sprite:
     def __init__(self, name):
         self.name = name
-        self.main_code = []
         # noinspection PyTypeChecker
-        self.code: dict[FnCall, list[Code]] = defaultdict(default_factory=list)
+        self.code: dict[FnBase, list[Code]] = defaultdict(default_factory=list)
         self.costumes = {}
         self.sounds = {}
         self.vars = {}
 
     def add_main_code(self, code):
-        self.main_code.append(code)
+        self.code[MAIN_CODE_EVENT] += code
 
-    def add_event_code(self, event: FnCall, code: list[Code]):
+    def add_event_code(self, event: FnBase, code: list[Code]):
         self.code[event] += code
 
     def add_resource(self, res):
@@ -55,4 +53,3 @@ class StageSprite(Sprite):
 
 class Program(Struct):
     sprites: dict[str, Sprite]
-

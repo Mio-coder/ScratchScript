@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from PyScratch.utils import AutoId
+from PyScratch.PyScratch import AutoId
 
 
 @dataclass

@@ -38,9 +38,9 @@ Var - value
 from pprint import pp
 from typing import Optional
 
-from ScratchScript.lang_compiler.lang_types import Variable, Sprite, StageSprite, Program
-from ScratchScript.lang_parser.lang_types import Assignment
-from ScratchScript.lang_parser.lang_types import Resource, Code, Event
+from ScratchScript.ScratchScript.lang_compiler.lang_types import Variable, Sprite, StageSprite, Program
+from ScratchScript.ScratchScript.lang_parser.lang_types import Assignment
+from ScratchScript.ScratchScript.lang_parser.lang_types import Resource, Code, Event
 
 
 class CompilerError(ValueError):

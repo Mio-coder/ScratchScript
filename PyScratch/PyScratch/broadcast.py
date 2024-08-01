@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from PyScratch.primitives import PrimitiveBlock
-from PyScratch.utils import AutoId
+from PyScratch.PyScratch import PrimitiveBlock
+from PyScratch.PyScratch import AutoId
 
 
 @dataclass

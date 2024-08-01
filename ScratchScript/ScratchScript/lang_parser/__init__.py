@@ -1,5 +1,5 @@
-from ScratchScript.lang_parser.lang_lexer import lexer
-from ScratchScript.lang_parser.lang_parser import parser
+from ScratchScript.ScratchScript.lang_parser import lexer
+from ScratchScript.ScratchScript.lang_parser.lang_parser import parser
 
 
 def main(file):
@@ -12,4 +12,4 @@ def main(file):
 
 
 if __name__ == '__main__':
-    main("../../../example.txt")
+    main("../../example.txt")

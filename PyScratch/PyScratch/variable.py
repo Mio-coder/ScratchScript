@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from PyScratch.utils import AutoId
+from PyScratch.PyScratch import AutoId
 
-from PyScratch.primitives import PrimitiveBlock
+from PyScratch.PyScratch import PrimitiveBlock
 
 
 @dataclass

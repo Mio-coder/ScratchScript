@@ -1,7 +1,7 @@
 from enum import StrEnum
 from typing import Optional, Any
 
-from PyScratch.utils import AutoId
+from PyScratch.PyScratch import AutoId
 
 
 class MonitorMode(StrEnum):

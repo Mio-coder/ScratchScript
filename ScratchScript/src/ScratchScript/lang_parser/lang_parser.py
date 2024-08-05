@@ -2,8 +2,8 @@ from functools import wraps
 
 from rply import ParserGenerator, Token
 
-from ScratchScript.ScratchScript.lang_parser import lang_tokens
-from ScratchScript.ScratchScript.lang_parser.lang_types import Resource, Event, Assignment, FnCall, MathExpr, Color, FnCallArgs
+from .lang_lexer import lang_tokens
+from .lang_types import Resource, Event, Assignment, FnCall, MathExpr, Color, FnCallArgs
 
 pg = ParserGenerator(lang_tokens)
 

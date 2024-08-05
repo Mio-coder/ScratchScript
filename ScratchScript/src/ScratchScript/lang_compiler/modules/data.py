@@ -1,11 +1,17 @@
-from PyScratch.PyScratch import Block, InputType, BlockInput, BlockField
-from ScratchScript.ScratchScript.lang_compiler.lang_function import FnBase
-from ScratchScript.ScratchScript.lang_parser.lang_types import FnCallArgs
-from ScratchScript.ScratchScript.lang_compiler.lang_code import State
+from typing import Optional
+
+from PyScratch.block import Block, InputType, BlockInput, BlockField
+from ..lang_function import FnBase, ModuleNamespace
+from ..lang_types import State
+from ...lang_parser.lang_types import FnCallArgs
+
+ns = ModuleNamespace("data")
 
 
+@ns.register("setvariableto")
 class setvariableto(FnBase):
-    def __init__(self, args: FnCallArgs, state: State):
+    def __init__(self, args: FnCallArgs, state: Optional[State] = None):
+        assert state is not None, "This function requires state"
         self.value = args.args[0]
         self.variable = state.get(args.args[1])
 
@@ -16,7 +22,7 @@ class setvariableto(FnBase):
                 BlockInput("VALUE", InputType.no_shadow, self.value)
             ],
             fields=[
-                BlockField("VARIABLE")
+                BlockField("VARIABLE", self.variable)
             ],
             shadow=False,
             next_block=next_block,

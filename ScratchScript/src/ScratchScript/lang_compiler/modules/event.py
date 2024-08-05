@@ -1,11 +1,13 @@
-from PyScratch.PyScratch import Block
-from ScratchScript.ScratchScript.lang_compiler.lang_code import State
-from ScratchScript.ScratchScript.lang_compiler.lang_function import FnBase
-from ScratchScript.ScratchScript.lang_parser.lang_types import FnCallArgs
+from typing import Optional
+
+from PyScratch.block import Block
+from ..lang_types import State
+from ..lang_function import FnBase
+from ...lang_parser.lang_types import FnCallArgs
 
 
 class whenflagclicked(FnBase):
-    def __init__(self, args: FnCallArgs, state: State):
+    def __init__(self, args: FnCallArgs, state: Optional[State] = None):
         pass
 
     def get_blocks(self, next_block: Block, parent: Block) -> list:
@@ -18,8 +20,6 @@ class whenflagclicked(FnBase):
             parent=parent,
         )]
 
-
-MAIN_CODE_EVENT = whenflagclicked(FnCallArgs(), State())
 
 
 class whenthisspriteclicked(FnBase):

@@ -14,6 +14,7 @@ dependencies = [
 requires-python = ">= 3.11"
 readme = "README.md"
 
+
 [project.optional-dependencies]
 gen_spec = [
     "block_sb3 @ file://localhost/Users/oparm/PycharmProjects/PyScratchScript/block_sb3"

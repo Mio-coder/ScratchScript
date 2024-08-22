@@ -19,7 +19,11 @@ class Color(Struct):
     value: str
 
 
-value = Color | str | int | float | tuple[float, float]
+class Angle(Struct):
+    value: int
+
+
+value = Angle | Color | str | int | float | tuple[float, float]
 
 expr = Expr | list[str]
 

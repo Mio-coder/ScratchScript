@@ -216,11 +216,16 @@ def field(p):
     return p[0].getstr(), p[2]
 
 
+@pg.production('value : INTEGER')
+@log_call
+def value(p):
+    return int(p[0].getstr())
+
+
 @pg.production('value : NUMBER')
 @log_call
 def value(p):
-    v = float(p[0].getstr())
-    return int(v) if v.is_integer() else v
+    return float(p[0].getstr())
 
 
 @pg.production('value : STRING')
@@ -241,6 +246,12 @@ def value(p):
     return p[0]
 
 
+@pg.production('value : MUL NUMBER')
+@log_call
+def value(p):
+    return p[0]
+
+
 @pg.production('position : L_PAREN NUMBER COMMA NUMBER R_PAREN')
 @log_call
 def position(p):
@@ -248,5 +259,3 @@ def position(p):
 
 
 parser = pg.build()
-
-

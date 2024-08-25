@@ -1,14 +1,26 @@
 from typing import Any
 
-from PyScratch.block import Block
+from PyScratch.block import Block, PrimitiveBlock
+from PyScratch.primitives import Color as ColorBlock, String, Integer, Number,
 from .lang_function import FnBase, parse_fn
 from .lang_types import Sprite, State
 from .modules.data import setvariableto
-from ..lang_parser.lang_types import Code, Assignment, FnCall, Expr, FnCallArgs
+from ..lang_parser.lang_types import Code, Assignment, FnCall, FnCallArgs, expr as expr_type, Color
 
 
 # TODO: implement
-def parse_expr(expr: Expr) -> Any:
+def parse_expr(expr: expr_type) -> PrimitiveBlock:
+    if isinstance(expr, Color):
+        return ColorBlock(expr.value)
+    if isinstance(expr, str):
+        return String(expr)
+    if isinstance(expr, int):
+        return Integer(expr)
+    if isinstance(expr, float):
+        return Number(expr)
+    if isinstance(expr, tuple):
+        # unsupported
+        raise ValueError("unsupported")
     return 10
 
 

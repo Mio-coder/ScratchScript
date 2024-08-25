@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any, Optional
 
-from PyScratch.utils import AutoId
+from .utils import AutoId
 
 
 @dataclass
@@ -26,14 +26,14 @@ class Asset(AutoId):
 
 @dataclass
 class Costume(Asset):
-    rotatation_center_x: int
-    rotatation_center_y: int
+    rotation_center_x: int
+    rotation_center_y: int
     bitmap_resolution: Optional[int] = None
 
     def to_dict(self):
         result = super().to_dict()
-        result["rotationCenterX"] = self.rotatation_center_x
-        result["rotationCenterY"] = self.rotatation_center_y
+        result["rotationCenterX"] = self.rotation_center_x
+        result["rotationCenterY"] = self.rotation_center_y
         if self.bitmap_resolution is not None:
             result["bitmapResolution"] = self.bitmap_resolution
         return result

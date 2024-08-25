@@ -35,12 +35,12 @@ Monitor - fields
 Comment? - fields
 Var - value
 """
-from pprint import pp
 from typing import Optional
 
-from ScratchScript.lang_compiler.lang_types import Variable, Sprite, StageSprite, Program
-from ScratchScript.lang_parser.lang_types import Assignment
-from ScratchScript.lang_parser.lang_types import Resource, Code, Event
+from .lang_code import parse_code_block
+from .lang_function import parse_fn
+from .lang_types import Variable, Sprite, StageSprite, Program, State
+from ..lang_parser.lang_types import Assignment, Resource, Code, Event, FnCall, FnCallArgs
 
 
 class CompilerError(ValueError):
@@ -54,7 +54,10 @@ def create_resource(v: Resource):
         return Variable(v.name)
 
 
-def create_sprite(v: Resource, sprite: Optional[Sprite] = None):
+MAIN_CODE_EVENT = FnCall(["whenflagclicked"], FnCallArgs([], dict()))
+
+
+def create_sprite(v: Resource, stage_state: State, sprite: Optional[Sprite] = None):
     if isinstance(v.contents, dict):
         raise CompilerError("sprite requires code, consider changing () to {}")
     if v.init_value is not None:
@@ -62,24 +65,33 @@ def create_sprite(v: Resource, sprite: Optional[Sprite] = None):
     if v.contents is None:
         raise CompilerError("sprite requires code, no code specified")
     if sprite is None:
-        sprite = Sprite(v.name)
+        sprite = Sprite(v.name, parse_fn(MAIN_CODE_EVENT))
     else:
         assert sprite.name == v.name
+    sprite_state = State(sprite.vars, stage_state)
+    main_code = []
     for stmt in v.contents:
         if isinstance(stmt, Resource):
-            sprite.add_resource(create_resource(stmt))
-        elif isinstance(stmt, Event):
-            sprite.add_event_code(stmt.name, stmt.code)
-        elif isinstance(stmt, Code):
-            sprite.add_main_code(stmt)
-            pp(stmt)
+            if v.res_type == "var":
+                sprite.add_resource(create_resource(v))
+            if v.init_value is not None:
+                main_code.append(Assignment(v.name, v.init_value))
+            else:
+                sprite.add_resource(create_resource(stmt))
+        elif isinstance(v, Event):
+            event_fn = parse_fn(v.name)
+            sprite.code[event_fn].append(parse_code_block(v.code, sprite_state, event_fn))
+        elif isinstance(v, Code):
+            main_code.append(v)
 
 
 def parse_program(n: list[Code]):
-    stage = StageSprite()
+    stage = StageSprite(parse_fn(MAIN_CODE_EVENT))
     sprites = {
         "Stage": stage
     }
+    stage_state = State(stage.vars)
+    main_code = []
     for v in n:
         if isinstance(v, Resource):
             if v.res_type == "sprite":
@@ -90,14 +102,16 @@ def parse_program(n: list[Code]):
             elif v.res_type == "var":
                 stage.add_resource(create_resource(v))
                 if v.init_value is not None:
-                    stage.add_main_code(Assignment(v.name, v.init_value))
+                    main_code.append(Assignment(v.name, v.init_value))
+                else:
+                    raise CompilerError(f"only sprites and code are allowed as top-level, not {v.res_type}")
+            elif isinstance(v, Event):
+                event_fn = parse_fn(v.name)
+                stage.code[event_fn].append(parse_code_block(v.code, stage_state, event_fn))
+            elif isinstance(v, Code):
+                main_code.append(v)
             else:
-                raise CompilerError(f"only sprites and code are allowed as top-level, not {v.res_type}")
-        elif isinstance(v, Event):
-            stage.add_event_code(v.name, v.code)
-        elif isinstance(v, Code):
-            stage.add_main_code(v)
-        else:
-            raise CompilerError(f"only sprites and code are allowed as top-level, not {type(v)}")
+                raise CompilerError(f"only sprites and code are allowed as top-level, not {type(v)}")
+    stage.main_code = parse_code_block(main_code, stage_state, parse_fn(MAIN_CODE_EVENT))
     program = Program(sprites)
     return program

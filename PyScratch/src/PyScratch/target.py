@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import StrEnum
 
-from PyScratch.utils import from_dict
+from .utils import from_dict
 from .asset import Costume, Sound
 from .block import Block
 from .broadcast import Broadcast

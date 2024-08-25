@@ -1,9 +1,34 @@
 from collections import defaultdict
+from typing import Optional, TYPE_CHECKING
 from warnings import warn
 
 from msgspec import Struct
 
-from ScratchScript.lang_parser.lang_types import Code, FnCall
+from PyScratch.variable import Variable
+from ..lang_parser.lang_types import Code
+
+if TYPE_CHECKING:
+    from .lang_function import FnBase
+
+
+class State(Struct):
+    variables: dict[str, Variable]
+    parent: Optional["State"] = None
+
+    def get(self, name) -> Variable:
+        if name in self.variables:
+            return self.variables[name]
+        if self.parent is not None:
+            return self.parent.get(name)
+        raise KeyError(f"Unknown variable {name}")
+
+
+class GlobalState(Struct):
+    sprites: dict[str, "Sprite"]
+
+    @property
+    def stage(self):
+        return self.sprites["stage"]
 
 
 class Costume(Struct):
@@ -17,25 +42,20 @@ class Sound(Struct):
 class Variable(Struct):
     name: str
 
-
-MAIN_CODE_EVENT = FnCall("event.test", [])
+    def to_expr(self):
+        return
 
 
 class Sprite:
-    def __init__(self, name):
+    def __init__(self, name: str, main_event: "FnBase"):
         self.name = name
-        self.main_code = []
         # noinspection PyTypeChecker
-        self.code: dict[FnCall, list[Code]] = defaultdict(default_factory=list)
+        self.code: dict[FnBase, list[list["FnBase"]]] = defaultdict(default_factory=list)
+        self.code[main_event] = []
+        self.main_code = self.code[main_event][0]
         self.costumes = {}
         self.sounds = {}
         self.vars = {}
-
-    def add_main_code(self, code):
-        self.main_code.append(code)
-
-    def add_event_code(self, event: FnCall, code: list[Code]):
-        self.code[event] += code
 
     def add_resource(self, res):
         table = {
@@ -49,10 +69,9 @@ class Sprite:
 
 
 class StageSprite(Sprite):
-    def __init__(self):
-        super().__init__("Stage")
+    def __init__(self, main_event: "FnBase"):
+        super().__init__("Stage", main_event)
 
 
 class Program(Struct):
     sprites: dict[str, Sprite]
-

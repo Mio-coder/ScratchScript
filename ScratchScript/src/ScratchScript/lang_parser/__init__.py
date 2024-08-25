@@ -1,14 +1,17 @@
-from ScratchScript.lang_parser.lang_lexer import lexer
-from ScratchScript.lang_parser.lang_parser import parser
+from .lang_lexer import lexer
+from .lang_parser import parser
+from .lang_types import Code
+
+
+def parse(source) -> list[Code]:
+    token_stream = lexer.lex(source)
+    return parser.parse(token_stream)
 
 
 def main(file):
     with open(file) as f:
         source = f.read() + "\n"
-    token_stream = lexer.lex(source)
-    tokens = list(token_stream)
-    result = parser.parse(iter(tokens))
-    return result
+    return parse(source)
 
 
 if __name__ == '__main__':

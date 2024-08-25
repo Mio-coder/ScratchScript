@@ -1,4 +1,4 @@
-from ScratchScript.lang_compiler.lang_extract import parse_program
+from .lang_extract import parse_program
 
 
 def main(program):

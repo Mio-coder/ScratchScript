@@ -1,14 +1,12 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from PyScratch.utils import AutoId
-
-from PyScratch.primitives import PrimitiveBlock
+from .primitives import PrimitiveBlock
+from .utils import AutoId
 
 
 @dataclass
 class Variable(AutoId):
-
     name: str
     value: str
     is_cloud: bool

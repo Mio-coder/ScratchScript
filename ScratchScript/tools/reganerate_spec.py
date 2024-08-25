@@ -5,7 +5,7 @@ from msgspec import DecodeError
 from msgspec.json import decode, encode
 
 try:
-    from block_sb3 import run
+    from block_sb3.block_sb3 import run
 except ImportError:
     print("Install block_sb3 to regenerate function specs")
     exit(1)
@@ -19,7 +19,8 @@ def main(verbose=False):
     files = [
         "Looks",
         "Motion",
-        "Variables"
+        "Variables",
+        "MinEvents"
     ]
     hashes_path = dir_path / "hashes.json"
     if hashes_path.exists():

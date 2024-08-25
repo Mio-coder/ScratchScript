@@ -1,114 +1,50 @@
-from typing import Optional, Any
+from typing import Any
 
-from msgspec import Struct
-from msgspec.json import decode
-
-from ScratchScript.lang_compiler.lang_function import FnSpec, get_raw_fn, get_function
-from ScratchScript.lang_compiler.lang_types import StageSprite, Sprite, Variable, MAIN_CODE_EVENT
-from ScratchScript.lang_parser.lang_types import Code, Assignment, FnCall, Expr, FnCallArgs
-
-# FnCall(name=['motion', 'goto'], args=[100, 100])
-data_setvariableto = get_raw_fn(decode("""
-{
-  "opcode": "data_setvariableto",
-  "inputs": {
-    "VALUE": {
-      "name": "VALUE",
-      "block_opcode": null
-    }
-  },
-  "fields": {
-    "VARIABLE": {
-      "name": "VARIABLE",
-      "possible_values": [
-        "[variable]"
-      ],
-      "functions": [
-        {
-          "fn_type": 12,
-          "name": "[variable]"
-        }
-      ]
-    }
-  }
-}
-""", type=FnSpec))
-
-
-class State(Struct):
-    variables: dict[str, Variable]
-    parent: Optional["State"] = None
-
-    def get(self, name):
-        if name in self.variables:
-            return self.variables[name]
-        if self.parent is not None:
-            return self.parent.get(name)
-        raise KeyError(f"Unknown variable {name}")
-
-
-class GlobalState(Struct):
-    sprites: dict[str, Sprite]
-
-    @property
-    def stage(self):
-        return self.sprites["stage"]
+from PyScratch.block import Block, PrimitiveBlock
+from PyScratch.primitives import Color as ColorBlock, String, Integer, Number,
+from .lang_function import FnBase, parse_fn
+from .lang_types import Sprite, State
+from .modules.data import setvariableto
+from ..lang_parser.lang_types import Code, Assignment, FnCall, FnCallArgs, expr as expr_type, Color
 
 
 # TODO: implement
-def parse_expr(expr: Expr) -> tuple[list, list, Any]:
-    return [], [], 10
+def parse_expr(expr: expr_type) -> PrimitiveBlock:
+    if isinstance(expr, Color):
+        return ColorBlock(expr.value)
+    if isinstance(expr, str):
+        return String(expr)
+    if isinstance(expr, int):
+        return Integer(expr)
+    if isinstance(expr, float):
+        return Number(expr)
+    if isinstance(expr, tuple):
+        # unsupported
+        raise ValueError("unsupported")
+    return 10
 
 
-def parse_code(sprite: Sprite, stage: StageSprite):
-    stage_state = State(stage.vars)
-    sprite_state = State(sprite.vars, stage_state)
-    code = sprite.code.copy()
-    if sprite.main_code is not []:
-        code[MAIN_CODE_EVENT] += sprite.main_code
-    result = {}
-    for name, code_block in code:
-        result[name] = parse_code_block(code_block, sprite_state)
-
-    return result
-
-
-# TODO: rewrite
-def parse_fn_call(fn_call: FnCall):
-    pre = []
-    post = []
-    args = []
-    kwargs = {}
-    fn_args: FnCallArgs = fn_call.args
-    for arg in fn_args.args:
-        expr_pre, expr_post, expr = parse_expr(arg)
-        pre += expr_pre
-        post += expr_post
-        args += expr
-    for name, arg in fn_args.kwargs:
-        expr_pre, expr_post, expr = parse_expr(arg)
-        pre += expr_pre
-        post += expr_post
-        kwargs[name] = arg
-    fn = get_function(fn_call.name)
-
-    return []
-
-
-def parse_code_block(code: list[Code], state: State):
-    parsed_code = []
+def parse_code_block(code: list[Code], state: State, root: FnBase) -> list[FnBase]:
+    functions = [root]
     for code_stmt in code:
         if isinstance(code_stmt, Assignment):
-            pre, post, value = parse_expr(code_stmt.value)
-            fn = data_setvariableto(
-                inputs={
-                    "VALUE": value
-                },
-                fields={
-                    "VARIABLE": state.get(code_stmt.name)
-                }
-            )
-            parsed_code += pre + [fn] + post
+            value = parse_expr(code_stmt.value)
+            fn = setvariableto(FnCallArgs([value, code_stmt]), state)
         elif isinstance(code_stmt, FnCall):
-            parsed_code += parse_fn_call(code_stmt)
-    return code
+            fn = parse_fn(code_stmt, state)
+        else:
+            continue
+        functions.append(fn)
+    return functions
+
+
+"""
+    parsed_code = []
+    code: FnBase
+    for previous_code, code, next_code in zip(
+            [None] + functions[:-1],
+            functions,
+            functions[1:] + [None]
+    ):
+        parsed_code += code.get_blocks(next_code, previous_code)
+"""
